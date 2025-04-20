@@ -7,14 +7,14 @@ public class Patient{
     private String gender;
     private String phone;
 
-    Patient(){
+    public Patient(){
         this.id = 404;
         this.name = "404";
         this.age = 404;
         this.gender = "404";
         this.phone = "404";
     }
-    Patient(int id ,String name,int age,String gender,String phone){
+    public Patient(int id ,String name,int age,String gender,String phone){
         this.id = id;
         this.name = name;
         this.age = age;
@@ -34,5 +34,5 @@ public class Patient{
     public String getName() {return name;}
     public int getAge() {return age;}
     public String getGender() {return gender;}
-    public String GetPhone(){return phone;}
+    public String getPhone(){return phone;}
 }

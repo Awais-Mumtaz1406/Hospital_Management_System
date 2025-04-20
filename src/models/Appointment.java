@@ -8,7 +8,7 @@ public class Appointment {
     private String time;
     private String status;
 
-    Appointment(){
+    public Appointment(){
         this.id = 404;
         this.patientId = 404;
         this.doctorId = 404;
@@ -16,7 +16,7 @@ public class Appointment {
         this.time = "404";
         this.status= "404";
     }
-    Appointment(int id,int patientId,int doctorId,String date,String time,String status){
+    public Appointment(int id,int patientId,int doctorId,String date,String time,String status){
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
