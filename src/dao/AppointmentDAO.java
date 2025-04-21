@@ -13,7 +13,7 @@ import java.util.List;
 public class AppointmentDAO {
 
     // Add Appointment
-    public void addAppointment(Appointment appointment) {
+    public static void addAppointment(Appointment appointment) {
         String sql = "INSERT INTO appointments (patientId, doctorId, date, time, status) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection()) {
             assert conn != null;
@@ -32,7 +32,7 @@ public class AppointmentDAO {
     }
 
     // Get all Appointments
-    public List<Appointment> getAllAppointments() {
+    public static List<Appointment> getAllAppointments() {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments";
 
@@ -52,7 +52,7 @@ public class AppointmentDAO {
     }
 
     // Get Appointment by ID (single)
-    public Appointment getAppointmentById(int id) {
+    public static Appointment getAppointmentById(int id) {
         String sql = "SELECT * FROM appointments WHERE id = ?";
         Appointment appointment = null;
 
@@ -74,7 +74,7 @@ public class AppointmentDAO {
     }
 
     // Get Appointments by Doctor ID
-    public List<Appointment> getAppointmentsByDoctorId(int doctorId) {
+    public static List<Appointment> getAppointmentsByDoctorId(int doctorId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments WHERE doctorId = ?";
 
@@ -96,7 +96,7 @@ public class AppointmentDAO {
     }
 
     // Get Appointments by Patient ID
-    public List<Appointment> getAppointmentsByPatientId(int patientId) {
+    public static List<Appointment> getAppointmentsByPatientId(int patientId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments WHERE patientId = ?";
 
@@ -118,7 +118,7 @@ public class AppointmentDAO {
     }
 
     // Delete Appointment by ID
-    public boolean deleteById(int id) {
+    public static boolean deleteById(int id) {
         String sql = "DELETE FROM appointments WHERE id = ?";
         boolean deleted = false;
 
@@ -138,7 +138,7 @@ public class AppointmentDAO {
     }
 
     // Update Appointment by ID
-    public boolean updateAppointment(Appointment appointment) {
+    public static boolean updateAppointment(Appointment appointment) {
         String sql = "UPDATE appointments SET patientId = ?, doctorId = ?, date = ?, time = ?, status = ? WHERE id = ?";
         boolean updated = false;
 
@@ -163,7 +163,7 @@ public class AppointmentDAO {
     }
 
     // Utility method to map ResultSet to Appointment
-    private Appointment mapRowToAppointment(ResultSet rs) throws SQLException {
+    private static Appointment mapRowToAppointment(ResultSet rs) throws SQLException {
         Appointment appointment = new Appointment();
         appointment.setId(rs.getInt("id"));
         appointment.setPatientId(rs.getInt("patientId"));

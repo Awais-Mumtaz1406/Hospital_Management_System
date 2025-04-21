@@ -14,8 +14,7 @@ public class Patient{
         this.gender = "404";
         this.phone = "404";
     }
-    public Patient(int id ,String name,int age,String gender,String phone){
-        this.id = id;
+    public Patient(String name,int age,String gender,String phone){
         this.name = name;
         this.age = age;
         this.gender = gender;

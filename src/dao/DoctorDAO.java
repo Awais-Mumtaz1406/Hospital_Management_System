@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DoctorDAO {
     //Add a new doctor to a database
-    public void addDoctor(Doctor doctor){
+    public static void addDoctor(Doctor doctor){
         String sql = "INSERT INTO doctors(name,specialization,phone,email,experience) VALUES(?,?,?,?,?)";
         try(Connection conn = DBConnection.getConnection()) {
             assert conn != null;
@@ -30,7 +30,7 @@ public class DoctorDAO {
         }
     }
     //Get All Doctors
-    public List<Doctor> getAllDoctor(){
+    public static List<Doctor> getAllDoctor(){
         List <Doctor> doctors = new ArrayList<>();
         String sql = "SELECT * FROM doctors";
 
@@ -56,7 +56,7 @@ public class DoctorDAO {
     }
 
     // Get a doctor by ID
-    public Doctor getDoctorById(int id) {
+    public static Doctor getDoctorById(int id) {
         String sql = "SELECT * FROM doctors WHERE id = ?";
         Doctor doctor = null;
 
@@ -88,7 +88,7 @@ public class DoctorDAO {
     }
 
     //Delete Doctor Info by id
-    public boolean deleteDoctorById(int id) {
+    public static boolean deleteDoctorById(int id) {
         String sql = "DELETE FROM doctors WHERE id = ?";
         boolean deleted = false;
 
@@ -116,7 +116,7 @@ public class DoctorDAO {
     }
 
     // Update doctor details
-    public boolean updateDoctor(Doctor doctor) {
+    public static boolean updateDoctor(Doctor doctor) {
         String sql = "UPDATE doctors SET name = ?, specialization = ?, phone = ?, email = ?, experience = ? WHERE id = ?";
         boolean updated = false;
 

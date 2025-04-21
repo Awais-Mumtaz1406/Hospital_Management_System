@@ -16,8 +16,7 @@ public class Doctor {
         this.email="404";
         this.experience=404;
     }
-    public Doctor(int id, String name, String specialization, String phone, String email, int experience){
-        this.id = id;
+    public Doctor( String name, String specialization, String phone, String email, int experience){
         this.name = name;
         this.specialization = specialization;
         this.phone = phone;
