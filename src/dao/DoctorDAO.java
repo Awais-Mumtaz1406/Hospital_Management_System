@@ -37,7 +37,7 @@ public class DoctorDAO {
         try(Connection conn = DBConnection.getConnection()) {
             assert conn!= null;
             try(PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery(sql)){
+                ResultSet rs = stmt.executeQuery()){
                     while (rs.next()){
                         Doctor d = new Doctor();
                         d.setId(rs.getInt("id"));

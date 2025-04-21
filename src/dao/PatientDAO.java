@@ -91,7 +91,7 @@ public class PatientDAO {
     }
 
     //Update Patient info
-    public boolean updateDoctor(Patient patient) {
+    public boolean updatePatient(Patient patient) {
         String sql = "UPDATE patients SET name = ?, age = ?, gender = ?, phone = ? WHERE id = ?";
         boolean updated = false;
 
@@ -124,4 +124,31 @@ public class PatientDAO {
         return updated;
     }
 
+    // Delete patient info
+    public boolean deletePatientById(int id) {
+        String sql = "DELETE FROM patients WHERE id = ?";
+        boolean deleted = false;
+
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) {
+                System.out.println("Database connection failed!");
+                return false;
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                int affectedRows = stmt.executeUpdate();
+                deleted = affectedRows > 0;
+
+                if (deleted) {
+                    System.out.println("Doctor deleted successfully.");
+                } else {
+                    System.out.println("Doctor not found with ID: " + id);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return deleted;
+    }
 }
