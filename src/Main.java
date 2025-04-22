@@ -18,30 +18,38 @@ public class Main {
             System.out.println("=======Hospital Management System========");
             System.out.println("1. Add Patient ");
             System.out.println("2. View all Patients");
-            System.out.println("3. Add Doctor ");
-            System.out.println("4. View all Doctors");
-            System.out.println("5. Add Appointment");
-            System.out.println("6. View all Appointments ");
-            System.out.println("7. View all Appointments by Doctor");
-            System.out.println("8. View all Appointments by Patient ");
-            System.out.println("9. Update Appointment by Id ");
-            System.out.println("10. Delete Appointment by Id");
-            System.out.println("11. Exit");
+            System.out.println("3. Get Patient by ID ");
+            System.out.println("4. Update Patient ");
+            System.out.println("5. Delete Patient ");
+            System.out.println("6. Add Doctor ");
+            System.out.println("7. View all Doctors");
+            System.out.println("8. Get Doctor by ID ");
+            System.out.println("9. Update Doctor ");
+            System.out.println("10. Delete Doctor ");
+            System.out.println("11. Add Appointment");
+            System.out.println("12. View all Appointments ");
+            System.out.println("13. View all Appointments by Doctor");
+            System.out.println("14. View all Appointments by Patient ");
+            System.out.println("15. Update Appointment by Id ");
+            System.out.println("16. Delete Appointment by Id");
+            System.out.println("17. Exit");
             System.out.println("============================================");
 
+            System.out.println("Enter Valid Number");
             int choice = abc.nextInt();
-            abc.nextLine(); // consume the newline character left by nextInt
-            switch (choice){
+            abc.nextLine();
+
+            switch (choice) {
                 case 1:
                     System.out.println("Enter Patient Details");
-                    System.out.println("Enter patient name");
+                    System.out.print("Name: ");
                     String name = abc.nextLine();
-                    System.out.println("Enter patient age");
+                    System.out.print("Age: ");
                     int age = abc.nextInt();
                     abc.nextLine();
-                    System.out.println("Enter patient gender");
+                    System.out.print("Gender: ");
                     String gender = abc.nextLine();
-                    System.out.println("Enter patient Phone");
+                    System.out.print("Phone: ");
                     String phone = abc.nextLine();
 
                     Patient patient = new Patient(name, age, gender, phone);
@@ -53,71 +61,140 @@ public class Main {
                     if (patients.isEmpty()) {
                         System.out.println("No patients found");
                     } else {
-                        System.out.println("Patient List");
-                        for (Patient p : patients) {
-                            System.out.println("ID: " + p.getId() + ", Name: " + p.getName() +
-                                    ", Age: " + p.getAge() + ", Gender: " + p.getGender() +
-                                    ", Contact: " + p.getPhone());
+                        for (Patient patientById : patients) {  // Iterate over each patient
+                            System.out.println("ID: " + patientById.getId() + ", Name: " + patientById.getName() +
+                                    ", Age: " + patientById.getAge() + ", Gender: " + patientById.getGender() +
+                                    ", Contact: " + patientById.getPhone());
                         }
                     }
+
                     break;
 
                 case 3:
-                    System.out.println("Enter Doctor Details");
-                    System.out.println("Enter doctor name");
-                    name = abc.nextLine();
-                    System.out.println("Enter doctor specialization");
-                    String specialization = abc.nextLine();
-                    System.out.println("Enter doctor Phone");
-                    phone = abc.nextLine();
-                    System.out.println("Enter doctor email");
-                    String email = abc.nextLine();
-                    System.out.println("Enter doctor experience");
-                    int experience = abc.nextInt();
-                    abc.nextLine(); // consume the newline character
+                    System.out.print("Enter Patient ID: ");
+                    int patientId = abc.nextInt();
+                    Patient patientById = PatientDAO.getPatientById(patientId);
+                    if (patientById == null) {
+                        System.out.println("No patient found with this ID");
+                    } else {
+                            System.out.println("ID: " + patientById.getId() + ", Name: " + patientById.getName() +
+                                    ", Age: " + patientById.getAge() + ", Gender: " + patientById.getGender() +
+                                    ", Phone: " + patientById.getPhone());
+                    }
+                    break;
 
+                case 4:
+                    System.out.print("Enter Patient Details to update: ");
+                    System.out.print("New Name: ");
+                    name = abc.nextLine();
+                    System.out.print("New Age: ");
+                    age = abc.nextInt();
+                    abc.nextLine();
+                    System.out.print("New Gender: ");
+                    gender = abc.nextLine();
+                    System.out.print("New Phone: ");
+                    phone = abc.nextLine();
+                    Patient updatedPatient = new Patient(name, age, gender, phone);
+                    boolean updatedP = PatientDAO.updatePatient(updatedPatient);
+                    System.out.println(updatedP ? "Patient updated successfully" : "Failed to update patient");
+                    break;
+
+                case 5:
+                    System.out.print("Enter Patient ID to delete: ");
+                    int deletePatientId = abc.nextInt();
+                    boolean deletedP = PatientDAO.deletePatientById(deletePatientId);
+                    System.out.println(deletedP ? "Patient deleted successfully" : "Failed to delete patient");
+                    break;
+
+                case 6:
+                    System.out.println("Enter Doctor Details");
+                    System.out.print("Name: ");
+                    name = abc.nextLine();
+                    System.out.print("Specialization: ");
+                    String specialization = abc.nextLine();
+                    System.out.print("Phone: ");
+                    phone = abc.nextLine();
+                    System.out.print("Email: ");
+                    String email = abc.nextLine();
+                    System.out.print("Experience: ");
+                    int experience = abc.nextInt();
+                    abc.nextLine();
                     Doctor doctor = new Doctor(name, specialization, phone, email, experience);
                     DoctorDAO.addDoctor(doctor);
                     break;
 
-                case 4:
+                case 7:
                     List<Doctor> doctors = DoctorDAO.getAllDoctor();
                     if (doctors.isEmpty()) {
-                        System.out.println("No doctors found");
+                        System.out.println("No patients found");
                     } else {
-                        System.out.println("Doctor List");
-                        for (Doctor d : doctors) {
-                            System.out.println("ID: " + d.getId() + ", Name: " + d.getName() +
-                                    ", Specialization: " + d.getSpecialization() + ", Phone: " + d.getPhone() +
-                                    ", Email: " + d.getEmail() + ", Experience: " + d.getExperience());
+                        for (Doctor doctor1 : doctors) {  // Iterate over each patient
+                            System.out.println("ID: " + doctor1.getId() + ", Name: " + doctor1.getName() +
+                                    ", Specialization: " + doctor1.getSpecialization() + ", Phone: " + doctor1.getPhone() +
+                                    ", Email: " + doctor1.getEmail() + ", Experience: " + doctor1.getExperience());
                         }
                     }
                     break;
 
-                case 5:
-                    System.out.println("Enter Appointment Details");
-                    System.out.println("Enter patient Id");
-                    int patientId = abc.nextInt();
-                    System.out.println("Enter doctor Id");
+                case 8:
+                    System.out.print("Enter Doctor ID: ");
                     int doctorId = abc.nextInt();
-                    abc.nextLine(); // consume the newline character
-                    System.out.println("Enter appointment date (yyyy-mm-dd)");
-                    String date = abc.nextLine();
-                    System.out.println("Enter appointment time (hh:mm)");
-                    String time = abc.nextLine();
-                    System.out.println("Enter appointment status");
-                    String status = abc.nextLine();
+                    Doctor doctorById = DoctorDAO.getDoctorById(doctorId);
+                    if (doctorById == null) {
+                        System.out.println("No doctor found with this ID");
+                    } else {
+                        System.out.println("ID: " + doctorById.getId() + ", Name: " + doctorById.getName() +
+                                ", Specialization: " + doctorById.getSpecialization() + ", Phone : " + doctorById.getPhone() +
+                                ", Email : " + doctorById.getEmail() + " Experience :"+ doctorById.getExperience());
+                    }
+                    break;
 
+                case 9:
+                    System.out.print("Enter Doctor Details to update: ");
+                    System.out.print("New Name: ");
+                    name = abc.nextLine();
+                    System.out.print("New Specialization: ");
+                    specialization = abc.nextLine();
+                    System.out.print("New Phone: ");
+                    phone = abc.nextLine();
+                    System.out.print("New Email: ");
+                    email = abc.nextLine();
+                    System.out.print("New Experience: ");
+                    experience = abc.nextInt();
+                    abc.nextLine();
+                    Doctor updatedDoc = new Doctor(name, specialization, phone, email, experience);
+                    boolean updatedDoctor = DoctorDAO.updateDoctor(updatedDoc);
+                    System.out.println(updatedDoctor ? "Doctor updated successfully" : "Failed to update doctor");
+                    break;
+
+                case 10:
+                    System.out.print("Enter Doctor ID to delete: ");
+                    int deleteDocId = abc.nextInt();
+                    boolean deletedDoctor = DoctorDAO.deleteDoctorById(deleteDocId);
+                    System.out.println(deletedDoctor ? "Doctor deleted successfully" : "Failed to delete doctor");
+                    break;
+
+                case 11:
+                    System.out.print("Enter Patient ID: ");
+                    patientId = abc.nextInt();
+                    System.out.print("Enter Doctor ID: ");
+                    doctorId = abc.nextInt();
+                    abc.nextLine();
+                    System.out.print("Enter Appointment Date (yyyy-mm-dd): ");
+                    String date = abc.nextLine();
+                    System.out.print("Enter Appointment Time (hh:mm): ");
+                    String time = abc.nextLine();
+                    System.out.print("Enter Status: ");
+                    String status = abc.nextLine();
                     Appointment appointment = new Appointment(patientId, doctorId, date, time, status);
                     AppointmentDAO.addAppointment(appointment);
                     break;
 
-                case 6:
+                case 12:
                     List<Appointment> appointments = AppointmentDAO.getAllAppointments();
                     if (appointments.isEmpty()) {
                         System.out.println("No appointments found");
                     } else {
-                        System.out.println("Appointments List");
                         for (Appointment app : appointments) {
                             System.out.println("ID: " + app.getId() + ", Patient ID: " + app.getPatientId() +
                                     ", Doctor ID: " + app.getDoctorId() + ", Date: " + app.getDate() +
@@ -126,14 +203,14 @@ public class Main {
                     }
                     break;
 
-                case 7:
-                    System.out.println("Enter Doctor ID to view appointments");
+                case 13:
+                    System.out.print("Enter Doctor ID: ");
                     doctorId = abc.nextInt();
-                    List<Appointment> doctorAppointments = AppointmentDAO.getAppointmentsByDoctorId(doctorId);
-                    if (doctorAppointments.isEmpty()) {
-                        System.out.println("No appointments found for this doctor");
+                    List<Appointment> docAppointments = AppointmentDAO.getAppointmentsByDoctorId(doctorId);
+                    if (docAppointments.isEmpty()) {
+                        System.out.println("No appointments for this doctor");
                     } else {
-                        for (Appointment app : doctorAppointments) {
+                        for (Appointment app : docAppointments) {
                             System.out.println("ID: " + app.getId() + ", Patient ID: " + app.getPatientId() +
                                     ", Date: " + app.getDate() + ", Time: " + app.getTime() +
                                     ", Status: " + app.getStatus());
@@ -141,14 +218,14 @@ public class Main {
                     }
                     break;
 
-                case 8:
-                    System.out.println("Enter Patient ID to view appointments");
+                case 14:
+                    System.out.print("Enter Patient ID: ");
                     patientId = abc.nextInt();
-                    List<Appointment> patientAppointments = AppointmentDAO.getAppointmentsByPatientId(patientId);
-                    if (patientAppointments.isEmpty()) {
-                        System.out.println("No appointments found for this patient");
+                    List<Appointment> patAppointments = AppointmentDAO.getAppointmentsByPatientId(patientId);
+                    if (patAppointments.isEmpty()) {
+                        System.out.println("No appointments for this patient");
                     } else {
-                        for (Appointment app : patientAppointments) {
+                        for (Appointment app : patAppointments) {
                             System.out.println("ID: " + app.getId() + ", Doctor ID: " + app.getDoctorId() +
                                     ", Date: " + app.getDate() + ", Time: " + app.getTime() +
                                     ", Status: " + app.getStatus());
@@ -156,47 +233,38 @@ public class Main {
                     }
                     break;
 
-                case 9:
-                    System.out.println("Enter Appointment ID to update");
-                    int id = abc.nextInt();
-                    System.out.println("Enter patient Id");
-                     patientId = abc.nextInt();
-                    System.out.println("Enter doctor Id");
-                     doctorId = abc.nextInt();
-                    abc.nextLine(); // consume the newline character
-                    System.out.println("Enter new appointment date (yyyy-mm-dd)");
+                case 15:
+                    System.out.print("Enter Appointment ID: ");
+                    int appId = abc.nextInt();
+                    System.out.print("Enter Patient ID: ");
+                    patientId = abc.nextInt();
+                    System.out.print("Enter Doctor ID: ");
+                    doctorId = abc.nextInt();
+                    abc.nextLine();
+                    System.out.print("Enter Date (yyyy-mm-dd): ");
                     date = abc.nextLine();
-                    System.out.println("Enter new appointment time (hh:mm)");
+                    System.out.print("Enter Time (hh:mm): ");
                     time = abc.nextLine();
-                    System.out.println("Enter new appointment status");
+                    System.out.print("Enter Status: ");
                     status = abc.nextLine();
-
-                    Appointment updatedAppointment = new Appointment(id,patientId,doctorId,date, time, status);
-                    boolean updated = AppointmentDAO.updateAppointment(updatedAppointment);
-                    if (updated) {
-                        System.out.println("Appointment updated successfully!");
-                    } else {
-                        System.out.println("Failed to update appointment");
-                    }
+                    Appointment updatedApp = new Appointment(appId, patientId, doctorId, date, time, status);
+                    boolean appUpdated = AppointmentDAO.updateAppointment(updatedApp);
+                    System.out.println(appUpdated ? "Appointment updated" : "Failed to update");
                     break;
 
-                case 10:
-                    System.out.println("Enter Appointment ID to delete");
-                    id = abc.nextInt();
-                    boolean deleted = AppointmentDAO.deleteById(id);
-                    if (deleted) {
-                        System.out.println("Appointment deleted successfully!");
-                    } else {
-                        System.out.println("Failed to delete appointment");
-                    }
+                case 16:
+                    System.out.print("Enter Appointment ID: ");
+                    int deleteAppId = abc.nextInt();
+                    boolean appDeleted = AppointmentDAO.deleteById(deleteAppId);
+                    System.out.println(appDeleted ? "Appointment deleted" : "Failed to delete");
                     break;
 
-                case 11:
-                    System.out.println("Good Bye");
+                case 17:
+                    System.out.println("Goodbye!");
                     return;
 
                 default:
-                    System.out.println("Invalid input");
+                    System.out.println("Invalid input, try again.");
             }
         }
     }

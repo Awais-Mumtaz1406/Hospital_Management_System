@@ -29,9 +29,9 @@ public class Patient{
     public void setPhone(String phone){this.phone=phone;}
 
     //Getters for the Patient
-    public int getId() {return id;}
-    public String getName() {return name;}
-    public int getAge() {return age;}
-    public String getGender() {return gender;}
-    public String getPhone(){return phone;}
+    public  int getId() {return id;}
+    public  String getName() {return name;}
+    public  int getAge() {return age;}
+    public  String getGender() {return gender;}
+    public  String getPhone(){return phone;}
 }

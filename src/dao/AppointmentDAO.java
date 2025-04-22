@@ -50,28 +50,28 @@ public class AppointmentDAO {
 
         return appointments;
     }
-
+// I make this Program just for enhancing my logic building skill
     // Get Appointment by ID (single)
-    public static Appointment getAppointmentById(int id) {
-        String sql = "SELECT * FROM appointments WHERE id = ?";
-        Appointment appointment = null;
-
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, id);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        appointment = mapRowToAppointment(rs);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return appointment;
-    }
+//    public static Appointment getAppointmentById(int id) {
+//        String sql = "SELECT * FROM appointments WHERE id = ?";
+//        Appointment appointment = null;
+//
+//        try (Connection conn = DBConnection.getConnection()) {
+//            assert conn != null;
+//            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+//                stmt.setInt(1, id);
+//                try (ResultSet rs = stmt.executeQuery()) {
+//                    if (rs.next()) {
+//                        appointment = mapRowToAppointment(rs);
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return appointment;
+//    }
 
     // Get Appointments by Doctor ID
     public static List<Appointment> getAppointmentsByDoctorId(int doctorId) {
