@@ -82,8 +82,8 @@ Once the program runs, you will see a menu with various options to manage patien
 12. View all Appointments 
 13. View all Appointments by Doctor
 14. View all Appointments by Patient 
-15. Update Appointment by Id 
-16. Delete Appointment by Id
+15. Update Appointment by ID 
+16. Delete Appointment by ID
 17. Exit
 ============================================
 ```
@@ -109,10 +109,7 @@ src/
 1. Fork this repository.
 2. Create a new branch (`git checkout -b feature/your-feature`).
 3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
+4. Commit your changes (`git commit -am 'Add new feature').
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Create a new Pull Request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
