@@ -61,10 +61,12 @@ public class Main {
                     if (patients.isEmpty()) {
                         System.out.println("No patients found");
                     } else {
-                        for (Patient patientById : patients) {  // Iterate over each patient
+                        for (Patient patientById : patients) {
+                            System.out.println("--------------------------------------------------------------------------");
                             System.out.println("ID: " + patientById.getId() + ", Name: " + patientById.getName() +
                                     ", Age: " + patientById.getAge() + ", Gender: " + patientById.getGender() +
                                     ", Contact: " + patientById.getPhone());
+                            System.out.println("---------------------------------------------------------------------------");
                         }
                     }
 
@@ -77,9 +79,11 @@ public class Main {
                     if (patientById == null) {
                         System.out.println("No patient found with this ID");
                     } else {
+                        System.out.println("---------------------------------------------------------------------------");
                             System.out.println("ID: " + patientById.getId() + ", Name: " + patientById.getName() +
                                     ", Age: " + patientById.getAge() + ", Gender: " + patientById.getGender() +
                                     ", Phone: " + patientById.getPhone());
+                        System.out.println("---------------------------------------------------------------------------");
                     }
                     break;
 
@@ -129,9 +133,11 @@ public class Main {
                         System.out.println("No patients found");
                     } else {
                         for (Doctor doctor1 : doctors) {  // Iterate over each patient
+                            System.out.println("---------------------------------------------------------------------------");
                             System.out.println("ID: " + doctor1.getId() + ", Name: " + doctor1.getName() +
                                     ", Specialization: " + doctor1.getSpecialization() + ", Phone: " + doctor1.getPhone() +
                                     ", Email: " + doctor1.getEmail() + ", Experience: " + doctor1.getExperience());
+                            System.out.println("---------------------------------------------------------------------------");
                         }
                     }
                     break;
@@ -143,9 +149,11 @@ public class Main {
                     if (doctorById == null) {
                         System.out.println("No doctor found with this ID");
                     } else {
+                        System.out.println("---------------------------------------------------------------------------");
                         System.out.println("ID: " + doctorById.getId() + ", Name: " + doctorById.getName() +
                                 ", Specialization: " + doctorById.getSpecialization() + ", Phone : " + doctorById.getPhone() +
                                 ", Email : " + doctorById.getEmail() + " Experience :"+ doctorById.getExperience());
+                        System.out.println("---------------------------------------------------------------------------");
                     }
                     break;
 
@@ -196,9 +204,11 @@ public class Main {
                         System.out.println("No appointments found");
                     } else {
                         for (Appointment app : appointments) {
+                            System.out.println("---------------------------------------------------------------------------");
                             System.out.println("ID: " + app.getId() + ", Patient ID: " + app.getPatientId() +
                                     ", Doctor ID: " + app.getDoctorId() + ", Date: " + app.getDate() +
                                     ", Time: " + app.getTime() + ", Status: " + app.getStatus());
+                            System.out.println("---------------------------------------------------------------------------");
                         }
                     }
                     break;
@@ -211,9 +221,11 @@ public class Main {
                         System.out.println("No appointments for this doctor");
                     } else {
                         for (Appointment app : docAppointments) {
+                            System.out.println("---------------------------------------------------------------------------");
                             System.out.println("ID: " + app.getId() + ", Patient ID: " + app.getPatientId() +
                                     ", Date: " + app.getDate() + ", Time: " + app.getTime() +
                                     ", Status: " + app.getStatus());
+                            System.out.println("---------------------------------------------------------------------------");
                         }
                     }
                     break;
@@ -226,9 +238,11 @@ public class Main {
                         System.out.println("No appointments for this patient");
                     } else {
                         for (Appointment app : patAppointments) {
+                            System.out.println("---------------------------------------------------------------------------");
                             System.out.println("ID: " + app.getId() + ", Doctor ID: " + app.getDoctorId() +
                                     ", Date: " + app.getDate() + ", Time: " + app.getTime() +
                                     ", Status: " + app.getStatus());
+                            System.out.println("---------------------------------------------------------------------------");
                         }
                     }
                     break;

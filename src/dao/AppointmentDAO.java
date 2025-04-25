@@ -26,6 +26,7 @@ public class AppointmentDAO {
                 stmt.executeUpdate();
                 System.out.println("Appointment added successfully!");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
