@@ -28,6 +28,14 @@ public class Patient{
     public void setGender(String gender){this.gender=gender;}
     public void setPhone(String phone){this.phone=phone;}
 
+    public Patient(int id, String name, int age, String gender, String phone) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.phone = phone;
+    }
+
     //Getters for the Patient
     public  int getId() {return id;}
     public  String getName() {return name;}

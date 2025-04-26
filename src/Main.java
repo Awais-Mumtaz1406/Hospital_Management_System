@@ -88,7 +88,10 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.print("Enter Patient Details to update: ");
+                    System.out.println("Enter Patient Details to update: ");
+                    System.out.println("Enter Patient id");
+                    int id = abc.nextInt();
+                    abc.nextLine();
                     System.out.print("New Name: ");
                     name = abc.nextLine();
                     System.out.print("New Age: ");
@@ -98,7 +101,7 @@ public class Main {
                     gender = abc.nextLine();
                     System.out.print("New Phone: ");
                     phone = abc.nextLine();
-                    Patient updatedPatient = new Patient(name, age, gender, phone);
+                    Patient updatedPatient = new Patient(id,name, age, gender, phone);
                     boolean updatedP = PatientDAO.updatePatient(updatedPatient);
                     System.out.println(updatedP ? "Patient updated successfully" : "Failed to update patient");
                     break;
@@ -112,7 +115,7 @@ public class Main {
 
                 case 6:
                     System.out.println("Enter Doctor Details");
-                    System.out.print("Name: ");
+                    System.out.println("Name: ");
                     name = abc.nextLine();
                     System.out.print("Specialization: ");
                     String specialization = abc.nextLine();
@@ -158,7 +161,10 @@ public class Main {
                     break;
 
                 case 9:
-                    System.out.print("Enter Doctor Details to update: ");
+                    System.out.println("Enter Doctor Details to update: ");
+                    System.out.println("Enter Doctor id");
+                    id = abc.nextInt();
+                    abc.nextLine();
                     System.out.print("New Name: ");
                     name = abc.nextLine();
                     System.out.print("New Specialization: ");
@@ -170,7 +176,7 @@ public class Main {
                     System.out.print("New Experience: ");
                     experience = abc.nextInt();
                     abc.nextLine();
-                    Doctor updatedDoc = new Doctor(name, specialization, phone, email, experience);
+                    Doctor updatedDoc = new Doctor(id ,name, specialization, phone, email, experience);
                     boolean updatedDoctor = DoctorDAO.updateDoctor(updatedDoc);
                     System.out.println(updatedDoctor ? "Doctor updated successfully" : "Failed to update doctor");
                     break;

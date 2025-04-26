@@ -16,7 +16,17 @@ public class Doctor {
         this.email="404";
         this.experience=404;
     }
-    public Doctor( String name, String specialization, String phone, String email, int experience){
+
+    public Doctor(int id, String name, String specialization, String phone, String email, int experience) {
+        this.id = id;
+        this.name = name;
+        this.specialization = specialization;
+        this.phone = phone;
+        this.email = email;
+        this.experience = experience;
+    }
+
+    public Doctor(String name, String specialization, String phone, String email, int experience){
         this.name = name;
         this.specialization = specialization;
         this.phone = phone;
