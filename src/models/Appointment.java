@@ -6,17 +6,10 @@ public class Appointment {
     private int doctorId;
     private String date;
     private String time;
-    private String status;
+    private AppointmentStatus status;
 
-    public Appointment(){
-        this.id = 404;
-        this.patientId = 404;
-        this.doctorId = 404;
-        this.date = "404";
-        this.time = "404";
-        this.status= "404";
-    }
-    public Appointment(int id,int patientId,int doctorId,String date,String time,String status){
+    public Appointment(){}
+    public Appointment(int id, int patientId, int doctorId, String date, String time, AppointmentStatus status){
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -24,7 +17,7 @@ public class Appointment {
         this.time = time;
         this.status = status;
     }
-    public Appointment(int patientId,int doctorId,String date,String time,String status){
+    public Appointment(int patientId, int doctorId, String date, String time, AppointmentStatus status){
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
@@ -52,7 +45,7 @@ public class Appointment {
     public void setTime(String time) {
         this.time = time;
     }
-    public void setStatus(String status) {
+    public void setStatus(AppointmentStatus status) {
         this.status = status;
     }
 
@@ -77,7 +70,7 @@ public class Appointment {
         return time;
     }
 
-    public String getStatus() {
+    public AppointmentStatus getStatus() {
         return status;
     }
 

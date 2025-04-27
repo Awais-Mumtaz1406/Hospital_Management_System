@@ -1,7 +1,9 @@
 package src.dao;
 
 import src.db.DBConnection;
+import src.models.AppointmentStatus;
 import src.models.Appointment;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,21 +17,20 @@ public class AppointmentDAO {
     // Add Appointment
     public static void addAppointment(Appointment appointment) {
         String sql = "INSERT INTO appointments (patientId, doctorId, date, time, status) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+         Connection conn = DBConnection.getConnection();
+         if (conn!=null){
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, appointment.getPatientId());
                 stmt.setInt(2, appointment.getDoctorId());
                 stmt.setString(3, appointment.getDate());
                 stmt.setString(4, appointment.getTime());
-                stmt.setString(5, appointment.getStatus());
+                stmt.setString(5, appointment.getStatus().name());
                 stmt.executeUpdate();
                 System.out.println("Appointment added successfully!");
-            }
-
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
         }
+         }
     }
 
     // Get all Appointments
@@ -37,16 +38,16 @@ public class AppointmentDAO {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null){
             try (PreparedStatement stmt = conn.prepareStatement(sql);
                  ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     appointments.add(mapRowToAppointment(rs));
                 }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
         }
 
         return appointments;
@@ -58,7 +59,6 @@ public class AppointmentDAO {
 //        Appointment appointment = null;
 //
 //        try (Connection conn = DBConnection.getConnection()) {
-//            assert conn != null;
 //            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 //                stmt.setInt(1, id);
 //                try (ResultSet rs = stmt.executeQuery()) {
@@ -79,8 +79,8 @@ public class AppointmentDAO {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments WHERE doctorId = ?";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, doctorId);
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -88,11 +88,10 @@ public class AppointmentDAO {
                         appointments.add(mapRowToAppointment(rs));
                     }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return appointments;
     }
 
@@ -101,8 +100,8 @@ public class AppointmentDAO {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT * FROM appointments WHERE patientId = ?";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, patientId);
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -110,11 +109,10 @@ public class AppointmentDAO {
                         appointments.add(mapRowToAppointment(rs));
                     }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return appointments;
     }
 
@@ -123,18 +121,17 @@ public class AppointmentDAO {
         String sql = "DELETE FROM appointments WHERE id = ?";
         boolean deleted = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 int affectedRows = stmt.executeUpdate();
                 deleted = affectedRows > 0;
                 System.out.println(deleted ? "Appointment deleted successfully." : "Appointment not found with ID: " + id);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return deleted;
     }
 
@@ -143,23 +140,22 @@ public class AppointmentDAO {
         String sql = "UPDATE appointments SET patientId = ?, doctorId = ?, date = ?, time = ?, status = ? WHERE id = ?";
         boolean updated = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, appointment.getPatientId());
                 stmt.setInt(2, appointment.getDoctorId());
                 stmt.setString(3, appointment.getDate());
                 stmt.setString(4, appointment.getTime());
-                stmt.setString(5, appointment.getStatus());
+                stmt.setString(5, appointment.getStatus().name());
                 stmt.setInt(6, appointment.getId());
                 int affectedRows = stmt.executeUpdate();
                 updated = affectedRows > 0;
                 System.out.println(updated ? "Appointment updated successfully." : "Appointment not found with ID: " + appointment.getId());
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return updated;
     }
 
@@ -171,7 +167,7 @@ public class AppointmentDAO {
         appointment.setDoctorId(rs.getInt("doctorId"));
         appointment.setDate(rs.getString("date"));
         appointment.setTime(rs.getString("time"));
-        appointment.setStatus(rs.getString("status"));
+        appointment.setStatus(AppointmentStatus.valueOf(rs.getString("status")));
         return appointment;
     }
 }

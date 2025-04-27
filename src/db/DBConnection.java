@@ -5,14 +5,28 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:sqlite:hospital.db"; // Path to your SQLite DB file
+    private static Connection conn = null;
 
     public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection(URL);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection("jdbc:sqlite:hospital.db");
+                System.out.println("Database Connected Successfully");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return conn;
+    }
+
+    public static void closeConnection() {
+        if (conn != null) {
+            try {
+                conn.close();
+                System.out.println("Database Connection Closed");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

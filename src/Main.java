@@ -3,6 +3,8 @@ package src;
 import src.dao.DoctorDAO;
 import src.dao.PatientDAO;
 import src.dao.AppointmentDAO;
+import src.db.DBConnection;
+import src.models.AppointmentStatus;
 import src.models.Doctor;
 import src.models.Patient;
 import src.models.Appointment;
@@ -198,8 +200,9 @@ public class Main {
                     String date = abc.nextLine();
                     System.out.print("Enter Appointment Time (hh:mm): ");
                     String time = abc.nextLine();
-                    System.out.print("Enter Status: ");
-                    String status = abc.nextLine();
+                    System.out.print("Enter Status (SCHEDULED, COMPLETED, CANCELLED): ");
+                    String statusInput = abc.nextLine().toUpperCase();
+                    AppointmentStatus status = AppointmentStatus.valueOf(statusInput);
                     Appointment appointment = new Appointment(patientId, doctorId, date, time, status);
                     AppointmentDAO.addAppointment(appointment);
                     break;
@@ -265,8 +268,9 @@ public class Main {
                     date = abc.nextLine();
                     System.out.print("Enter Time (hh:mm): ");
                     time = abc.nextLine();
-                    System.out.print("Enter Status: ");
-                    status = abc.nextLine();
+                    System.out.print("Enter Status (SCHEDULED, COMPLETED, CANCELLED): ");
+                    statusInput = abc.nextLine().toUpperCase();
+                    status = AppointmentStatus.valueOf(statusInput);
                     Appointment updatedApp = new Appointment(appId, patientId, doctorId, date, time, status);
                     boolean appUpdated = AppointmentDAO.updateAppointment(updatedApp);
                     System.out.println(appUpdated ? "Appointment updated" : "Failed to update");
@@ -276,11 +280,13 @@ public class Main {
                     System.out.print("Enter Appointment ID: ");
                     int deleteAppId = abc.nextInt();
                     boolean appDeleted = AppointmentDAO.deleteById(deleteAppId);
-                    System.out.println(appDeleted ? "Appointment deleted" : "Failed to delete");
+                    System.out.println(appDeleted ? "Yes" : "Failed to delete");
                     break;
 
                 case 17:
                     System.out.println("Goodbye!");
+                    DBConnection.closeConnection();
+                    System.exit(0);
                     return;
 
                 default:

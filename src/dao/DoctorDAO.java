@@ -12,21 +12,21 @@ public class DoctorDAO {
     //Add a new doctor to a database
     public static void addDoctor(Doctor doctor){
         String sql = "INSERT INTO doctors(name,specialization,phone,email,experience) VALUES(?,?,?,?,?)";
-        try(Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
-            try(PreparedStatement stmt = conn.prepareStatement(sql)){
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setString(1, doctor.getName());
                 stmt.setString(2, doctor.getSpecialization());
                 stmt.setString(3, doctor.getPhone());
                 stmt.setString(4, doctor.getEmail());
-                stmt.setInt(5,doctor.getExperience());
+                stmt.setInt(5, doctor.getExperience());
 
                 stmt.executeUpdate();
                 System.out.println("Doctor added Successfully!");
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e){
-            e.printStackTrace();
         }
     }
     //Get All Doctors
@@ -34,23 +34,23 @@ public class DoctorDAO {
         List <Doctor> doctors = new ArrayList<>();
         String sql = "SELECT * FROM doctors";
 
-        try(Connection conn = DBConnection.getConnection()) {
-            assert conn!= null;
-            try(PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery()){
-                    while (rs.next()){
-                        Doctor d = new Doctor();
-                        d.setId(rs.getInt("id"));
-                        d.setName(rs.getString("name"));
-                        d.setSpecialization(rs.getString("specialization"));
-                        d.setPhone(rs.getString("phone"));
-                        d.setEmail(rs.getString("email"));
-                        d.setExperience(rs.getInt("experience"));
-                        doctors.add(d);
-                    }
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Doctor d = new Doctor();
+                    d.setId(rs.getInt("id"));
+                    d.setName(rs.getString("name"));
+                    d.setSpecialization(rs.getString("specialization"));
+                    d.setPhone(rs.getString("phone"));
+                    d.setEmail(rs.getString("email"));
+                    d.setExperience(rs.getInt("experience"));
+                    doctors.add(d);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }catch (SQLException e){
-            e.printStackTrace();
         }
         return doctors;
     }
@@ -60,12 +60,8 @@ public class DoctorDAO {
         String sql = "SELECT * FROM doctors WHERE id = ?";
         Doctor doctor = null;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return null;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -79,11 +75,10 @@ public class DoctorDAO {
                         doctor.setExperience(rs.getInt("experience"));
                     }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return doctor;
     }
 
@@ -92,12 +87,8 @@ public class DoctorDAO {
         String sql = "DELETE FROM doctors WHERE id = ?";
         boolean deleted = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return false;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 int affectedRows = stmt.executeUpdate();
@@ -108,9 +99,9 @@ public class DoctorDAO {
                 } else {
                     System.out.println("Doctor not found with ID: " + id);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return deleted;
     }
@@ -120,12 +111,8 @@ public class DoctorDAO {
         String sql = "UPDATE doctors SET name = ?, specialization = ?, phone = ?, email = ?, experience = ? WHERE id = ?";
         boolean updated = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return false;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, doctor.getName());
                 stmt.setString(2, doctor.getSpecialization());
@@ -142,9 +129,9 @@ public class DoctorDAO {
                 } else {
                     System.out.println("Doctor not found with ID: " + doctor.getId());
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return updated;

@@ -13,8 +13,8 @@ public class PatientDAO {
     public static void addPatient(Patient patient) {
         String sql = "INSERT INTO patients(name, age, gender, phone) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setString(1, patient.getName());
@@ -25,9 +25,9 @@ public class PatientDAO {
                 stmt.executeUpdate();
                 System.out.println("✅Patient added successfully!");
 
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -36,8 +36,8 @@ public class PatientDAO {
         List<Patient> patients = new ArrayList<>();
         String sql = "SELECT * FROM patients";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            assert conn != null;
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -51,9 +51,9 @@ public class PatientDAO {
                     patients.add(p);
                 }
 
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return patients;
@@ -64,12 +64,8 @@ public class PatientDAO {
         String sql = "SELECT * FROM patients WHERE id = ?";
 
         Patient patient = null;
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return null;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -82,11 +78,10 @@ public class PatientDAO {
                         patient.setPhone(rs.getString("phone"));
                     }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return patient;
     }
 
@@ -95,32 +90,27 @@ public class PatientDAO {
         String sql = "UPDATE patients SET name = ?, age = ?, gender = ?, phone = ? WHERE id = ?";
         boolean updated = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return false;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, patient.getName());
                 stmt.setInt(2, patient.getAge());
                 stmt.setString(3, patient.getGender());
-                stmt.setString(4,patient.getPhone());
+                stmt.setString(4, patient.getPhone());
                 stmt.setInt(5, patient.getId());
 
                 int affectedRows = stmt.executeUpdate();
                 updated = affectedRows > 0;
 
                 if (updated) {
-                    System.out.println("Patient updated successfully.");
+                    System.out.println("Yes");
                 } else {
                     System.out.println("Patient not found with ID: " + patient.getId());
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return updated;
     }
 
@@ -129,25 +119,21 @@ public class PatientDAO {
         String sql = "DELETE FROM patients WHERE id = ?";
         boolean deleted = false;
 
-        try (Connection conn = DBConnection.getConnection()) {
-            if (conn == null) {
-                System.out.println("Database connection failed!");
-                return false;
-            }
-
+        Connection conn = DBConnection.getConnection();
+        if (conn!=null) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 int affectedRows = stmt.executeUpdate();
                 deleted = affectedRows > 0;
 
                 if (deleted) {
-                    System.out.println("Doctor deleted successfully.");
+                    System.out.println("Patient deleted successfully.");
                 } else {
-                    System.out.println("Doctor not found with ID: " + id);
+                    System.out.println("Patient not found with ID: " + id);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return deleted;
     }
