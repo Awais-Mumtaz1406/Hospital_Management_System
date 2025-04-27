@@ -10,9 +10,14 @@ public class DBConnection {
     public static Connection getConnection() {
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection("jdbc:sqlite:hospital.db");
-                System.out.println("Database Connected Successfully");
-            } catch (SQLException e) {
+                Class.forName("org.postgresql.Driver"); // <-- Add this line for PostgreSQL driver
+                conn = DriverManager.getConnection(
+                        "jdbc:postgresql://localhost:5432/hospital",  // database URL
+                        "junaid",                                      // your username
+                        "77335566"                                     // your password
+                );
+                System.out.println("PostgreSQL Database Connected Successfully");
+            } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
         }
