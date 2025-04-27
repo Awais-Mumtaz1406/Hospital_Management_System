@@ -105,14 +105,14 @@ public class Main {
                     phone = abc.nextLine();
                     Patient updatedPatient = new Patient(id,name, age, gender, phone);
                     boolean updatedP = PatientDAO.updatePatient(updatedPatient);
-                    System.out.println(updatedP ? "Patient updated successfully" : "Failed to update patient");
+                    System.out.println(updatedP ? "Yes" : "Failed to update patient");
                     break;
 
                 case 5:
                     System.out.print("Enter Patient ID to delete: ");
                     int deletePatientId = abc.nextInt();
                     boolean deletedP = PatientDAO.deletePatientById(deletePatientId);
-                    System.out.println(deletedP ? "Patient deleted successfully" : "Failed to delete patient");
+                    System.out.println(deletedP ? "Yes" : "Failed to delete patient");
                     break;
 
                 case 6:
@@ -180,14 +180,14 @@ public class Main {
                     abc.nextLine();
                     Doctor updatedDoc = new Doctor(id ,name, specialization, phone, email, experience);
                     boolean updatedDoctor = DoctorDAO.updateDoctor(updatedDoc);
-                    System.out.println(updatedDoctor ? "Doctor updated successfully" : "Failed to update doctor");
+                    System.out.println(updatedDoctor ? "Yes" : "Failed to update doctor");
                     break;
 
                 case 10:
                     System.out.print("Enter Doctor ID to delete: ");
                     int deleteDocId = abc.nextInt();
                     boolean deletedDoctor = DoctorDAO.deleteDoctorById(deleteDocId);
-                    System.out.println(deletedDoctor ? "Doctor deleted successfully" : "Failed to delete doctor");
+                    System.out.println(deletedDoctor ? "Yes" : "Failed to delete doctor");
                     break;
 
                 case 11:
@@ -273,7 +273,7 @@ public class Main {
                     status = AppointmentStatus.valueOf(statusInput);
                     Appointment updatedApp = new Appointment(appId, patientId, doctorId, date, time, status);
                     boolean appUpdated = AppointmentDAO.updateAppointment(updatedApp);
-                    System.out.println(appUpdated ? "Appointment updated" : "Failed to update");
+                    System.out.println(appUpdated ? "Yes" : "Failed to update");
                     break;
 
                 case 16:
