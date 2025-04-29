@@ -3,7 +3,7 @@
 ## Overview
 This **Hospital Management System** is a software application designed to manage patients, doctors, and appointments in a hospital setting. It allows for CRUD (Create, Read, Update, Delete) operations for both patients and doctors. Additionally, the system facilitates appointment scheduling, viewing, and management.
 
-The project is built using **Java** and **PostgreSQL** as the database, ensuring a portable solution for managing hospital data.
+The project is built using Java and PostgreSQL as the database, ensuring a portable solution for managing hospital data.
 
 ## Features
 
@@ -32,8 +32,8 @@ The project is built using **Java** and **PostgreSQL** as the database, ensuring
 ## Technologies Used
 
 - **Java** - Core language for the application logic.
-- **PostgreSQL** - Reliable and industry oriented database for storing patient, doctor, and appointment records.
-- **JDBC** - Java Database Connectivity for interaction between Java application and SQLite database.
+- **PostgreSQL** - A Reliable and industry-oriented database for storing patient, doctor, and appointment records.
+- **JDBC** - Java Database Connectivity for interaction between a Java application and a PostgreSQL database.
 
 ## Installation
 
@@ -44,8 +44,8 @@ The project is built using **Java** and **PostgreSQL** as the database, ensuring
    cd hospital-management-system
    ```
 
-2. **Setup SQLite Database:**
-   - Ensure you have **SQLite** installed on your system.
+2. **Setup PostgreSQL Database:**
+   - Ensure you have **PostgreSQl** installed on your system.
    - The database file `hospital.db` should already be present in the project directory after running the application for the first time, but if not, it can be manually created.
 
 3. **Build the Project:**
